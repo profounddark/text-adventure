@@ -170,7 +170,7 @@ class Adventure
     }
 }
 
-// BEGIN testing crap
+/* ******** MAIN PROGRAM BEGINS BELOW ******** */
 
 let adventureData;
 
@@ -181,6 +181,7 @@ function loadStory(storyURL)
     .then((resp) => resp.json())
     .then(function(data)
         {
+            // pull the JSON data into an Adventure class
             adventureData = new Adventure(data.title, data.author, data.startnode, data.failnode, data.nodes);
             title.innerHTML = adventureData.getStoryTitle();
             updatePage();

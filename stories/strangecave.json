@@ -36,7 +36,7 @@
         [
             {
                 "text": "Go in the cave.",
-                "destination": "p5"
+                "destination": "insidethecave-1"
             },
             {
                 "text": "Give up and go home.",
@@ -53,7 +53,7 @@
         [
             {
                 "text": "Follow your friends.",
-                "destination": "p3"
+                "destination": "end-retreat"
             },
             {
                 "text": "Go into the cave.",
@@ -62,10 +62,26 @@
         ]
     },
 
-    "p3" :
+    "end-retreat" :
     {
         "pagetitle": "On the Way Home",
-        "storyText": "You follow your friends all of the way back home. All the time, they make lament your unwillingness to follow through with your plan to enter the cave. By the time you make it back to your house, you've managed to get over your embarassment. At least mostly.</p><p>At home, one of your parents asks, \"So, what did you do today?\" They look at you, earnestly waiting for a response.</p><p>\"Nothing. Just hanging out with my friends. We went for a walk into the forest, but we did not do anything there.\"</p><p>You spend the rest of the afternoon thinking about what may have happened had you entered the cave. Another time, maybe.",
+        "storyText":
+        [
+            {
+                "text": "You follow your friends all of the way back home."
+            },
+            {
+                "text": "The whole way home, they make fun of your unwillingness to follow through with your plan to enter the cave.",
+                "requirement": "p2"
+            },
+            {
+                "text": "The whole way home, they make fun of how you ran out of the cave and tripped, falling face first into the dirt.",
+                "requirement": "cave-retreat"
+            },
+            {
+                "text": "By the time you make it back to your house, you've managed to get over your embarassment. At least mostly.</p><p>At home, one of your parents asks, \"So, what did you do today?\" They look at you, earnestly waiting for a response.</p><p>\"Nothing. Just hanging out with my friends. We went for a walk into the forest, but we did not do anything there.\"</p><p>You spend the rest of the afternoon thinking about what may have happened had you actually gone through with your adventure into the cave. Another time, maybe."
+            }
+        ],
         "choices":
         [
             {
@@ -83,24 +99,56 @@
         [
             {
                 "text": "Go into the cave.",
-                "destination": "p5"
+                "destination": "insidethecave-1"
             }
         ]
     },
 
-    "p5":
+    "insidethecave-1":
     {
         "pagetitle": "Entering the Cave",
-        "storyText": "You haven't gone that far into the cave before the light seems to disappear entirely. Looking back, you can see your friends standing outside of the entrance. It's like even the light is too afraid to go too far into this cave.</p><p>As you stumble through the ",
+        "storyText": 
+        [
+            {
+                "text": "You haven't gone that far into the cave before the light seems to disappear entirely. Looking back, you can see your friends standing outside of the entrance. It's like even the light is too afraid to go too far into this cave."
+            },
+            {
+                "text": "You start to think that maybe you were right to think this was dangerous.",
+                "requirement": "p2"
+            },
+            {
+                "text": "</p><p>It's very dark. You can barely even see your hands in front of your face. You reach into your jacket pocket and pull out the flashlight that you brought along with you."
+            }
+        ],
         "choices":
         [
             {
                 "text": "Switch on your flashlight.",
                 "destination": "p6"
+            },
+            {
+                "text": "Turn around and leave the cave.",
+                "requirement": "!p2",
+                "destination": "cave-retreat"
+            },
+            {
+                "text": "Turn around and leave the cave.",
+                "requirement": "p2",
+                "destination": "no-retreat"
             }
         ]
     },
-
+    "cave-retreat":
+    {
+        "storyText": "As you stumble back towards the light of the cave entrance, you see all of your friends standing right where you left them. As you escape the mouth of the cave, you trip on a rock and fall in the dirt. Your friends break into laughter.</p><p>\"Look at that! Barely a minute and you already came running out like a scaredy cat!\"</p><p>One of your friends helps you up and dusts some of the dirt off of your clothes. As the laughter subsides, somebody mentions that it's nearly sunset and that you need to head home.",
+        "choices":
+        [
+            {
+                "text": "Follow your friends home.",
+                "destination": "end-retreat"
+            }
+        ]
+    },
     "failure" :
     {
         "storyText": "This doesn't actually exist. You must have gotten here by accident, because you really shouldn't be here. Maybe you need to start over?",
