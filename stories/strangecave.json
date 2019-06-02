@@ -94,7 +94,7 @@
     "p4":
     {
         "pagetitle": "Outside of the Cave",
-        "storyText": "\"Hey, everybody!\" you yell back at them. \"I changed my mind. I'm going to do it.\"</p><p>They pause and turn back. You can tell that they don't quite believe you. \"I'm serious! I'm going to do it this time.\"</p><p>They slowly walk back to the mouth of the cave, standing around you as they did before.",
+        "storyText": "\"Hey, everybody!\" you yell back at them. \"I changed my mind. I'm going to do it.\" They pause and turn back. You can tell that they don't quite believe you. \"I'm serious! I'm going to do it this time.\"</p><p>They slowly walk back to the mouth of the cave, standing around you as they did before. You take a deep breath and slowly step into the dark mouth of the cave.",
         "choices":
         [
             {
@@ -124,7 +124,7 @@
         [
             {
                 "text": "Switch on your flashlight.",
-                "destination": "p6"
+                "destination": "insidethecave-2"
             },
             {
                 "text": "Turn around and leave the cave.",
@@ -140,12 +140,25 @@
     },
     "cave-retreat":
     {
+        "pagetitle": "Running out of the Cave",
         "storyText": "As you stumble back towards the light of the cave entrance, you see all of your friends standing right where you left them. As you escape the mouth of the cave, you trip on a rock and fall in the dirt. Your friends break into laughter.</p><p>\"Look at that! Barely a minute and you already came running out like a scaredy cat!\"</p><p>One of your friends helps you up and dusts some of the dirt off of your clothes. As the laughter subsides, somebody mentions that it's nearly sunset and that you need to head home.",
         "choices":
         [
             {
                 "text": "Follow your friends home.",
                 "destination": "end-retreat"
+            }
+        ]
+    },
+    "no-retreat":
+    {
+        "pagetitle": "No Turning Back",
+        "storyText": "For a moment you think of running out of the cave, but you quickly think of how everybody acted when you said you were not sure about going into the cave. They'll probably call you names and make fun of you. No, you've already stepped inside. You have to keep going.",
+        "choices":
+        [
+            {
+                "text": "Get over your fear and turn on your flashlight.",
+                "destination": "insidethecave-2"
             }
         ]
     },
