@@ -1,5 +1,9 @@
 /* Styles for WATS 3020 Text Adventure */
 
+#main-page
+{
+    display: none;
+}
 #story-text {
     font-weight: 300;
     font-size: 1.2rem;
@@ -50,6 +54,7 @@ body {
     border: 4px double #666;
 }
 html {
+    background: #e8e8e8 url('../images/vertical-waves.png') repeat;
 }
 
 

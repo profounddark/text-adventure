@@ -6,12 +6,14 @@ The intent is to have a Single Page App (SPA) that allows the player to go throu
 Once the basic format is created, additional features will be added to support more expansive stories.
 
 # Current Status
-Currently in production.
+1. Basic Functionality.
+2. Text and options change based on nodes previously visited.
+3. Allow the user to select different stories at start.
+
+# Known Issues
+1. The GameState array never resets. If the story sets the player back to the start on reaching an endpoint, future playthroughs will get weird with old GameState data. It's probably worthwhile to have pages that RESET the GameState. That being said, there's probably also value in having a system that prevent the purging of *certain* GameState data. This would allow for Bandersnatch/Shadows of Destiny style weirdness.
 
 # Future Features
-0. Basic functionality.
-1. Allow the user to select different stories at start.
-2. Text and options that change based on nodes previously visited.
-3. Implementing custom style sheet control for different stories.
-4. Adding graphics/images to specific nodes.
-5. Adding sound/dialogue to specific nodes.
+1. Implementing custom style sheet control for different stories.
+2. Adding graphics/images to specific nodes.
+3. Adding sound/dialogue to specific nodes.

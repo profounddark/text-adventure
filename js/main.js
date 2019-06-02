@@ -183,7 +183,14 @@ function loadStory(storyURL)
         {
             // pull the JSON data into an Adventure class
             adventureData = new Adventure(data.title, data.author, data.startnode, data.failnode, data.nodes);
+            
+            // Hide the story selection screen, make the story visible.
+            let selectPage = document.querySelector('#select-page');
+            selectPage.style.display = "none";
+            let mainPage = document.querySelector('#main-page');
+            mainPage.style.display = "block";
             title.innerHTML = adventureData.getStoryTitle();
+            
             updatePage();
         });
 }
@@ -192,7 +199,7 @@ function loadStory(storyURL)
 let title = document.querySelector('#story-title');
 
 let pageTitle = document.querySelector('#page-title');
-let pageContent = document.querySelector('#page-text');
+let storyContent = document.querySelector('#page-text');
 let choicesUL = document.querySelector('#choices');
 
 function updatePage() 
@@ -206,7 +213,9 @@ function updatePage()
     {
         pageTitle.style.display = "none";
     }
-    pageContent.innerHTML = adventureData.getPageText();
+    storyContent.innerHTML = adventureData.getPageText();
+    // commented out for now: this may be useful with custom style sheets
+    // storyContent.setAttribute('class', adventureData.getCurrentNode());
     choicesUL.innerHTML = '';
     let choiceArray = adventureData.getPageChoices();
     for (let count = 0; count < choiceArray.length; count++)
@@ -229,5 +238,3 @@ function addEventListeners(){
         })
     }
 }
-
-loadStory("strangecave");
