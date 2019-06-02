@@ -8,13 +8,22 @@
     "cover":
     {
         "pagetitle": null,
-        "storyText": "Welcome to The Strange Cave, a work of Interactive Fiction. Throughout this adventure, you will make decisions about what your character does. Some decisions may lead to a conclusion while others may lead to further opportunities. Choose wisely!",
-        
+        "storyText": 
+        [
+            {
+                "text": "Welcome to The Strange Cave, a work of Interactive Fiction. Throughout this adventure, you will make decisions about what your character does. Some decisions may lead to a conclusion while others may lead to further opportunities. Choose wisely!"
+            },
+            {
+                "text": "</p><p>That's weird. It looks like you've been here before.",
+                "requirement": "p1"
+            }
+            
+        ],
         "choices":
         [
             {
                 "text": "Begin the story!",
-                "link": "p1"
+                "destination": "p1"
             }
         ]
     },
@@ -27,11 +36,11 @@
         [
             {
                 "text": "Go in the cave.",
-                "link": "p5"
+                "destination": "p5"
             },
             {
                 "text": "Give up and go home.",
-                "link": "p2"
+                "destination": "p2"
             }
         ]
     },
@@ -44,11 +53,11 @@
         [
             {
                 "text": "Follow your friends.",
-                "link": "p3"
+                "destination": "p3"
             },
             {
                 "text": "Go into the cave.",
-                "link": "p4"
+                "destination": "p4"
             }
         ]
     },
@@ -61,7 +70,7 @@
         [
             {
                 "text": "Play again?",
-                "link": "p1"
+                "destination": "p1"
             }
         ]
     },
@@ -74,7 +83,7 @@
         [
             {
                 "text": "Go into the cave.",
-                "link": "p5"
+                "destination": "p5"
             }
         ]
     },
@@ -87,7 +96,7 @@
         [
             {
                 "text": "Switch on your flashlight.",
-                "link": "p6"
+                "destination": "p6"
             }
         ]
     },
@@ -99,7 +108,7 @@
         [
             {
                 "text": "Begin again?",
-                "link": "p1"
+                "destination": "p1"
             }
         ]
     }

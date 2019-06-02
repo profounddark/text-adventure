@@ -28,4 +28,17 @@ So, when it's constructed, it reads in the JSON story data structure. It builds 
 The idea is "instance a new Adventure, passing it the data for the adventure you want to run. Then, you can ask it for the "description text" and the "options list with destinations." You can then pass it a destination and it advances to that node, ready to provide new stuff. Tracking gameState and other weird shit is all internal; all the user of the class has to handle is "put this shit on screen and then tell the class where to go next."
 
 ### Data Structures
-* an array of nodes
+* storyTitle - Name of the story
+* storyAuthor - author of the story
+* startNode - the start node of the story (this may not be necessary if the Adventure is a specific instance of an adventure)
+* failNode - the failure node (what it goes to if the node that it tries to seek out isn't there)
+* an list of nodes, ordered by name of the node.
+* currentNode - the current Node, initially set to startNode
+* gameHistory - an array of all of the nodes that the player has visited.
+
+### Methods
+* getCurrentNode - returns the current node name (not super useful?)
+* getCurrentNodeTitle
+* getCurrentStoryText(gameState)
+* getCurrentChoices(gameState) - returns the available choices with their respective links (i.e., calls getChoices from the node)
+* moveToNode(nodeName) - when the interface will know what possible destination node are available and pass it when a button/option is selected. So, this just tells the game to move to the next node.

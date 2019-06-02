@@ -1,6 +1,4 @@
-
-// BEGIN the AdventureNode class
-
+// TODO: Figure out how to import/export JS, just to clean this shit up.2
 class AdventureNode
 {
     constructor(title, textArray, options)
@@ -10,38 +8,35 @@ class AdventureNode
         this.nodeOptions = [];
         
         // TODO: implement this when I know how to determine if something is a string
-        /*
-        if (textArray is a string)
+        
+        if (typeof textArray == "string")
         {
             let tempText = {text: textArray, requirement: null};
             this.nodeText.push(tempText);
         }
         else
         {
-            DO THE LOOP
-        }
-        */
-
-        for (let count = 0; count < textArray.length; count++)
-        {
-            
-            let tempText = {text: null, requirement: null};
-
-            tempText.text = textArray[count].text;
-            if (textArray[count].requirement)
+            for (let count = 0; count < textArray.length; count++)
             {
-                tempText.requirement = textArray[count].requirement;
+                
+                let tempText = {text: null, requirement: null};
+    
+                tempText.text = textArray[count].text;
+                if (textArray[count].requirement)
+                {
+                    tempText.requirement = textArray[count].requirement;
+                }
+                this.nodeText.push(tempText);
             }
-            this.nodeText.push(tempText);
         }
-
+        
         // allows for nodes to not have requirements
         for (let count = 0; count < options.length; count++)
         {
             let tempOption = {requirement: null, text: null, destination: null};
 
             tempOption.text = options[count].text;
-            tempOption.destination = options[count].text;
+            tempOption.destination = options[count].destination;
 
             if (options[count].requirement)
             {
@@ -105,41 +100,133 @@ class AdventureNode
 
 }
 
-// END the AdventureNode class
 
+/******************** BEGIN the Adventure class ********************/
+class Adventure 
+{
+    constructor(title, author, start, failure, nodes)
+    {
+        this.storyTitle = title;
+        this.storyAuthor = author;
+        // the "current state" is always the last member of the array.
+        this.gameState = [start];
+        this.failureNode = failure;
+        
+        // This is the node part.
+        this.nodeList = {};
+        let keyList = Object.keys(nodes);
+        
+        for(let count = 0; count < keyList.length; count++)
+        {
+            let tempKey = keyList[count];
+            let tempNode = new AdventureNode(nodes[tempKey].pagetitle, nodes[tempKey].storyText, nodes[tempKey].choices);
+            this.nodeList[tempKey] = tempNode;
+        }
+        
+    }
+
+    // sets the current gameState to the node specified. If it's not there, it throws it to the failure node.
+    moveToNode(newNode)
+    {
+        if (this.nodeList.hasOwnProperty(newNode))
+        {
+            this.gameState.push(newNode);
+        }
+        else
+        {
+            this.gameState.push(this.failureNode);
+            console.log("uh oh! Failure!");
+        }
+    }
+
+    getStoryTitle()
+    {
+        return (this.storyTitle);
+    }
+    getStoryAuthor()
+    {
+        return (this.storyAuthor);
+    }
+
+    getCurrentNode()
+    {
+        let node = this.gameState[this.gameState.length - 1];
+        return node;
+    }
+    
+    getPageTitle()
+    {
+        return (this.nodeList[this.getCurrentNode()].getNodeTitle());
+    }
+
+    getPageText()
+    {
+        return (this.nodeList[this.getCurrentNode()].getStoryText(this.gameState));
+    }
+    
+    getPageChoices()
+    {
+        return (this.nodeList[this.getCurrentNode()].getChoices(this.gameState));
+    }
+}
 
 // BEGIN testing crap
 
-let textArray = [
+let adventureData;
+
+function loadStory(storyURL)
+{
+ 
+   fetch('./stories/' + storyURL + '.json')
+    .then((resp) => resp.json())
+    .then(function(data)
+        {
+            adventureData = new Adventure(data.title, data.author, data.startnode, data.failnode, data.nodes);
+            title.innerHTML = adventureData.getStoryTitle();
+            updatePage();
+        });
+}
+
+
+let title = document.querySelector('#story-title');
+
+let pageTitle = document.querySelector('#page-title');
+let pageContent = document.querySelector('#page-text');
+let choicesUL = document.querySelector('#choices');
+
+function updatePage() 
+{
+    if (adventureData.getPageTitle())
     {
-        text: "You are in a small holding cell, a 3 meter by 3 meter square space with a bench attached to the wall on one side and the cell door on the other."
-    },
-    {
-        text: "The cell door is closed.",
-        requirement: "!openthedoor"
-    },
-    {
-        text: "The cell door is open.",
-        requirement: "openthedoor"
+        pageTitle.style.display = "block";
+        pageTitle.innerHTML = adventureData.getPageTitle();
     }
-]
-
-let testString = "You are in a small holding cell, a 3 meter by 3 meter square space with a bench attached to the wall on one side and the cell door on the other.";
-
-let options = [
+    else
     {
-        text: "Look around the cell.",
-        destination: "lookaroundcell"
-    },
-    {
-        requirement: "openthedoor",
-        text: "Exit through the door.",
-        destination: "exitthecell"
+        pageTitle.style.display = "none";
     }
-];
+    pageContent.innerHTML = adventureData.getPageText();
+    choicesUL.innerHTML = '';
+    let choiceArray = adventureData.getPageChoices();
+    for (let count = 0; count < choiceArray.length; count++)
+    {
+        let newLI = document.createElement('li');
+        newLI.innerHTML = choiceArray[count].text;
+        newLI.setAttribute('data-slug', choiceArray[count].destination);
+        choicesUL.appendChild(newLI);
+    }
+    addEventListeners();
+}
 
-let testNode = new AdventureNode(null, textArray, options);
-console.log(testNode);
-console.log(testNode.getStoryText(["openthedoor"]));
-console.log(testNode.getStoryText([]));
-console.log(testNode.getChoices([]));
+function addEventListeners(){
+    let choices = document.querySelectorAll('#choices li');
+    for (choice of choices){
+        choice.addEventListener('click', function(e){
+            console.log(`Moving to page: ${e.target.dataset.slug}`);
+            adventureData.moveToNode(e.target.dataset.slug);
+            updatePage();
+        })
+    }
+}
+
+loadStory("strangecave");
